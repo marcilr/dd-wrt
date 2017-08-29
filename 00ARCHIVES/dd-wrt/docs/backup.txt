@@ -1,0 +1,26 @@
+backup.txt
+Created Thu Jan 11 06:53:16 AKST 2007
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+
+FIXME: Not seeing backup under DD-WRT yet:)
+
+Backup of router firmware using DD-WRT.
+
+"Save the configuration on both routers: Administration -> Backup. 
+Click "Backup" button and follow prompts so save nvram backup files, 
+i.e. nvram_host.bin, and nvram_client.bin. The configurations can be 
+restored if the setup doesn't work out and you need to quickly get 
+back to a different (working) configuration."
+from: wrt.com/wiki/
+
+
+Filelist
+========
+
+Links
+=====
+WDS Linked router network <== Good stuff***
+Looks useful
+http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
