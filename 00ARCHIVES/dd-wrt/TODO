@@ -1,0 +1,100 @@
+TODO
+Created Thu Jul 28 09:14:15 AKDT 2011
+by Raymond E. Marcil <marcilr@gmail.com>
+
++++ Sun Aug  7 17:12:45 AKDT 2011 - Need to determine configuration
+of NAT using iptables.
+
++++ Sun Jul 31 20:00:17 AKDT 2011 - Configure internal 10.1.0.1 gateway ip
+and external 69.178.10.210 address for gci.
+
+external
+--------
+This will be the Internet or WAN port on back of wrt54gl wireless router.
+  ip: 69.178.10.210
+mask: 255.255.192.0
+ mac: 00:80:C8:B9:0A:AD
+
+internal
+--------
+  ip: 10.1.0.1
+mask: 255.255.255.0
+
+In dd-wrt under Setup > Basic Setup:
+Connection Type:   Disabled
+                   Static IP
+                   Automatic Configuration - DHCP   <== The default
+                   PPPoE
+                   PPTP
+                   L2TP
+                   Heartbeat Signal                  
+
+
++++ Sun Jul 31 17:12:59 AKDT 2011 - Not convinced 
+Setup > Basic Setup > Local DNS is configured right.  May need DNSMasq 
+configured.
+
+see: docs/dnsmasq.txt
+
+DNS with dd-wrt
+http://concisionandconcinnity.blogspot.com/2009/01/dns-with-dd-wrt.html
+
+
++++ Mon Aug  1 02:49:30 UTC 2011 - Configure port forwarding for malachite and 
+bornite under NAT > QoS > Port Forwarding
+
+bornite   - port 60143 tcp & udp to 10.1.0.65
+malachite - port 22 tcp & udp (ssh) to 10.1.0.55 
+
+Looks like iptables might not be needed at all.
+
++++ Sun Jul 31 00:23:34 AKDT 2011 - Need to configure iptables on 
+wizzle for garage use.
+
+
+Complete
+========
+x Sun Aug  7 17:16:51 AKDT 2011 - Set 00:80:C8:B9:0A:AD mac under
+Setup > Mac Address Clone
+
+Set mac address, 00:80:C8:B9:0A:AD, for 69.178.10.210 gci use.
+
+Setup > Mac Address Clone
+MAC Clone
+x Enable     Disable
+Clone WAN MAC: 00:80:C8:B9:0A:AD  <== Copied from bornite's configuration.
+
+x Mon Aug  1 10:06:43 AKDT 2011 - See docs/dnsmasq.txt for details of use.
+
+Sun Jul 31 16:27:14 AKDT 2011 - Correct value for Setup > Basic Setup > Network Setup
+Local DNS?  Need to understand DNSMasq configuration.
+
+x Mon Aug  1 02:49:15 UTC 2011
+Sun Jul 31 00:23:34 AKDT 2011 - Set time zone.  UTC-8
+Current local time in Anchorage
+
+x Sun Jul 31 00:23:34 AKDT 2011 - Flashed DD-WRT v24-sp1 (07/27/08) std on wizzle.
+Thu Jul 28 09:14:15 AKDT 2011 - Flash new dd-wrt from current dd-wrt installation?
+
+x Sun Jul 31 00:23:34 AKDT 2011 - DD-WRT v24-sp1 (07/27/08) std - latest stable.
+Thu Jul 28 09:14:15 AKDT 2011 - New version to install on WRT54GL?
+
+x Sun Jul 31 00:23:34 AKDT 2011 - 
+Thu Jul 28 09:14:15 AKDT 2011 - Current version of dd-wrt on wozzle and wizzle?
+DD-WRT v23 SP1 Final (05/16/06) std
+
+
+Links
+=====
+List of TCP and UDP port numbers
+From Wikipedia, the free encyclopedia
+http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+
+One-to-one NAT
+http://www.dd-wrt.com/wiki/index.php/One-to-one_NAT
+
+Resources (One-to-one NAT, dd-wrt.com/)
+http://www.shorewall.net/NAT.htm
+http://www.dd-wrt.com/phpBB2/viewtopic.php?t=24555
+http://www.dd-wrt.com/phpBB2/viewtopic.php?p=400472#400472 
+
