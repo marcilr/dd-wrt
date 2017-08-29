@@ -1,0 +1,10 @@
+test1.txt
+Created Thu Jan 11 21:11:34 AKST 2007
+by Raymond E. Marcil
+
+
+Plugged malachite into wizzle (garage) - client router port 1.
+
+1. Tried ping to 192.168.1.2 - Worked. ~0.7ms
+2. Tried ping to 192.168.1.1 - Worked. ~1.4ms
+3. Tired ping to 10.1.0.1    - Worked. ~1.4ms
