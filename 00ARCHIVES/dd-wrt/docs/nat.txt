@@ -1,0 +1,317 @@
+nat.txt
+Created Sat Aug  6 13:51:03 AKDT 2011
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Use NAT (Netwrok Address Translation) on the WRT54GL for home network internet access.
+
+
+Contents
+========
+1. Introduction
+2. Setup
+   2.1 Startup
+   2.2 Firewall
+       2.2.1 SNAT/DNAT
+       2.2.2 PORT FORWARD
+3. Copy/Paste Examples
+   3.1 Startup Script
+   3.2 Firewall Script
+4. Resources
+
+
+Introduction
+============
+One-to-one NAT (aka Static NAT) is a way to make systems behind a firewall and configured with
+private IP addresses (those addresses reserved for private use in RFC 1918) appear to have public
+IP addresses
+
+
+Setup
+=====
+Begin by assigning one of the static addresses to the WAN port using the Web interface and then 
+use these scripts to add the rest.
+
+Everything in square brackets needs to be replaced by your values.  Examples are at the bottom. 
+
+
+Startup
+=======
+Set up new public static IP on dd-wrt WAN interface.  This must be done for each public static IP 
+and should be saved to the Startup script using the Save Startup button on the 
+Administration -> Commands page.  If you do not know how to calculate your broadcast address, then 
+enter your IP and subnet mask into this [calculator].
+
+WANIF=`get_wanface`
+ifconfig $WANIF:1 [PUBLIC_IP1] netmask [NETMASK] broadcast [BROADCAST]
+ifconfig $WANIF:2 [PUBLIC_IP2] netmask [NETMASK] broadcast [BROADCAST]
+ifconfig $WANIF:3 [PUBLIC_IP3] netmask [NETMASK] broadcast [BROADCAST]
+
+NOTE: Don't have any public IP's.  Nothing to do here.
+      (marcilr - Sat Aug 6, 2011)
+
+
+Firewall
+========
+Here are some examples of firewall rules to NAT the external IP's to your internal IP's. 
+Put them in the command box and use the Save Firewall button on the Administration -> Commands 
+page to save them to your firewall script. 
+
+
+SNAT/DNAT
+=========
+Route all packets for the new public IP, to a certain local IP.
+  iptables -t nat -I PREROUTING -d [PUBLIC_IP] -j DNAT --to-destination [LAN_IP]
+
+Route packets on a port on the new public IP, to a different port of a local IP. 
+Note that you can skip [LAN_Port] if it matches [Destination_Port].
+  iptables -t nat -I PREROUTING -d [PUBLIC_IP] -p tcp --dport [Destination_Port] \
+    -j DNAT --to-destination [LAN_IP]:[LAN_Port] 
+
+Masquerade returned packets from the local ip to the public IP
+  iptables -t nat -I POSTROUTING -s [LAN_IP] -j SNAT --to-source [PUBLIC_IP]
+
+NOTE: Don't think I need to do this.
+      marcilr - Sat Aug 6, 2011
+
+
+PORT FORWARD
+============
+Forward port X to above local IP
+  iptables -I FORWARD -d [LAN_IP] -p tcp --dport [Destination_Port] -j ACCEPT
+
+You could also replace above rule(s) with the following:
+  iptables -I FORWARD -d [LAN_IP] -j ACCEPT 
+
+Which instead of forwarding just a single port, will let through all tcp/udp 
+connections on all ports to this public ip-->lan ip.
+
+In other words, forwarding all connections would be no firewalling for that IP address. 
+
+NOTE: Used web interface NAT/QoS > Port Forwarding to configure forward.
+      marcilr - Sat Aug 6, 2011
+
+
+Copy/Paste Examples
+===================
+Startup Script
+
+# Save Startup
+WANIF=`get_wanface`
+ifconfig $WANIF:1 173.X.X.250 netmask [NETMASK] broadcast [BROADCAST]
+ifconfig $WANIF:2 173.X.X.251 netmask [NETMASK] broadcast [BROADCAST]
+ifconfig $WANIF:3 173.X.X.252 netmask [NETMASK] broadcast [BROADCAST]
+
+
+Firewall Script
+===============
+# Save Firewall
+
+# WAN .250 -> LAN .15
+iptables -t nat -I PREROUTING -d 173.X.X.250 -j DNAT --to 192.168.0.15
+iptables -t nat -I POSTROUTING -s 192.168.0.15 -j SNAT --to 173.X.X.250
+iptables -I FORWARD -d 192.168.0.15 -p tcp --dport 21 -j ACCEPT
+iptables -I FORWARD -d 192.168.0.15 -p tcp --dport 80 -j ACCEPT
+iptables -I FORWARD -d 192.168.0.15 -p tcp --dport 5900 -j ACCEPT
+
+# WAN .251 -> LAN .20
+iptables -t nat -I PREROUTING -d 173.X.X.251 -j DNAT --to 192.168.0.20
+iptables -t nat -I POSTROUTING -s 192.168.0.20 -j SNAT --to 173.X.X.251
+iptables -I FORWARD -d 192.168.0.20 -p tcp --dport 21 -j ACCEPT
+iptables -I FORWARD -d 192.168.0.20 -p tcp --dport 80 -j ACCEPT
+iptables -I FORWARD -d 192.168.0.20 -p tcp --dport 5900 -j ACCEPT
+
+
+Startup Script
+==============
+Set under Administration > Commands > cut n' paste > click Save Startup
+
+Adapted from bornite's /etc/init.d/iptables flush():
+
+#
+# Flush iptables rules.
+# Migrated from prior iptables-flush script.
+# May 25, 2010 (rem)
+#
+
+IPTABLES=/usr/sbin/iptables
+
+#
+# reset the default policies in the filter table.
+#
+${IPTABLES} -P INPUT ACCEPT
+${IPTABLES} -P FORWARD ACCEPT
+${IPTABLES} -P OUTPUT ACCEPT
+
+#
+# reset the default policies in the nat table.
+#
+${IPTABLES} -t nat -P PREROUTING ACCEPT
+${IPTABLES} -t nat -P POSTROUTING ACCEPT
+${IPTABLES} -t nat -P OUTPUT ACCEPT
+
+#
+# reset the default policies in the mangle table.
+#
+${IPTABLES} -t mangle -P PREROUTING ACCEPT
+${IPTABLES} -t mangle -P OUTPUT ACCEPT
+
+#
+# flush all the rules in the filter and nat tables.
+#
+${IPTABLES} -F
+${IPTABLES} -t nat -F
+${IPTABLES} -t mangle -F
+
+#
+# erase all chains that's not default in filter and nat table.
+#
+${IPTABLES} -X
+${IPTABLES} -t nat -X
+${IPTABLES} -t mangle -X
+
+
+Firewall Script
+===============
+Set under Administration > Commands > cut n' paste > click Save Firewall
+
+Adapted from bornite's /etc/init.d/iptables start:
+
+IPTABLES=/usr/sbin/iptables
+
+#
+# IP addresses
+#
+
+#
+# Private interface for internal 10.1.0.x network.
+# Inspection with ifconfig -a:
+# br0   Link encap:Ethernet  HWaddr 00:16:B6:1C:7D:BB  
+#       inet addr:10.1.0.1  Bcast:10.1.0.255  Mask:255.255.255.0
+#
+PRIVATE=br0
+
+# Internal NAT'ed network 
+PRIVATENET=10.1.0.0/24
+
+# DHCP network (ethernet laptops)
+DHCPNET=172.16.0.0/24
+
+# Wireless NAT'ed network
+WIRENET=192.168.1.0/24
+
+# Work network (University of Alaska Anchorage)
+WORKNET=137.229.0.0/16
+
+# Subversion server (bornite)
+SVNADDR=10.1.0.65
+
+# Subversion port.  To alleviate port 22 redirect to malachite.
+SVNPORT=60143
+
+#
+# Public address on vlan1 
+# Inspection with ifconfig -a:
+# Link encap:Ethernet  HWaddr 00:80:C8:B9:0A:AD  
+# inet addr:69.178.10.210  Bcast:69.178.63.255  Mask:255.255.192.0
+#
+PUBLICADDR=69.178.10.210
+
+# Wizzle firewall
+WIZZLE=10.1.0.1
+
+# Home malachite workstation
+MALACHITE=10.1.0.55
+
+# Enable IP forwarding in case it isn't
+# The default is 1.
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Drop DHCP, don't transmit out.
+${IPTABLES} -N udpincoming_packets
+${IPTABLES} -A udpincoming_packets -p UDP --source-port 67 -i ${PRIVATE} -j DROP
+
+#
+# Masquarade svn+ssh (on port 60143)
+# High ports 1023-65536, no port 0.
+#
+${IPTABLES} -A PREROUTING -t nat -p tcp --dport ${SVNPORT} -i ${PRIVATE} -j DNAT --to ${SVNADDR} -s ${PRIVATENET}
+${IPTABLES} -A PREROUTING -t nat -p tcp --dport ${SVNPORT} -d ${PUBLICADDR} -i ${PRIVATE} -j DNAT --to ${SVNADDR} -s ${PRIVATENET}
+
+${IPTABLES} -A PREROUTING -t nat -p tcp --dport ${SVNPORT} -i ${PUBLIC} -j DNAT --to ${SVNADDR} -s ${WORKNET}
+${IPTABLES} -A PREROUTING -t nat -p tcp --dport ${SVNPORT} -d ${PUBLICADDR} -i ${PRIVATE} -j DNAT --to ${SVNADDR} -s ${WORKNET}
+
+#
+# Masquarade internal networks
+# PRIVATENET  - 10.1.0.0/24
+# WIRENET - 192.168.1.0/24
+# DHCPNET - 172.16.0.0/24
+#
+${IPTABLES} -A POSTROUTING -t nat -o ${PUBLIC} -s ${PRIVATENET}  -j MASQUERADE
+${IPTABLES} -A POSTROUTING -t nat -o ${PUBLIC} -s ${WIRENET} -j MASQUERADE
+${IPTABLES} -A POSTROUTING -t nat -o ${PUBLIC} -s ${DHCPNET} -j MASQUERADE
+ 
+# Reverse MASQ for Secure Shell - Direct to malachite.
+${IPTABLES} -A PREROUTING -t nat -p tcp --dport 22 -i ${PUBLIC} -j DNAT --to ${MALACHITE} || exit 1
+
+#
+# This is a clever rule solves the classic problem of internal
+# machines trying to get to the internal 'public' webserver.
+# The firewall maps the source IP address to its own for these connections, 
+# fooling the server into replying through it. From:
+# http://www.netfilter.org/documentation/HOWTO//NAT-HOWTO-10.html
+#
+#   10.1.0.0/24 - Internal network
+#   WIZZLE - 10.1.0.1 internal IP address of firewall
+
+# Perform reverse magic for port 60143 (svn for ssh) to bornite (10.1.0.65).
+${IPTABLES} -A POSTROUTING -t nat -p tcp --dport ${SVNPORT} -d ${SVNADDR} -s ${PRIVATENET}  -j SNAT --to ${WIZZLE}
+${IPTABLES} -A POSTROUTING -t nat -p tcp --dport ${SVNPORT} -d ${SVNADDR} -s ${WIRENET} -j SNAT --to ${WIZZLE}
+${IPTABLES} -A POSTROUTING -t nat -p tcp --dport ${SVNPORT} -d ${SVNADDR} -s ${DHCPNET} -j SNAT --to ${WIZZLE}
+
+#---------------------------------------------------------------------------
+# Prior to masquerading, the packets are routed via the filter
+# table's FORWARD chain.
+#
+# Allowed outbound: New, established and related connections
+# Allowed inbound : Established and related connections
+#
+# Quick HOWTO : Ch14 : Linux Firewalls Using iptables
+# http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_\
+# :_Ch14_:_Linux_Firewalls_Using_iptables#Masquerading_.28Many_to_One_NAT.29
+#---------------------------------------------------------------------------
+${IPTABLES} -A FORWARD -t filter -o ${PUBLIC} -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT  
+${IPTABLES} -A FORWARD -t filter -i ${PUBLIC} -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#
+# "Once a decision is made to accept a packet, no more rules affect it. As our rules 
+# allowing ssh and web traffic come first, as long as our rule to block all traffic
+# comes after them, we can still accept the traffic we want. All we need to do is 
+# put the rule to block all traffic at the end."  (ubuntu.com)
+# May 25, 2010 (rem)
+#
+# FIXME: This rule broke the SVNPORT=60143 port for svn.
+#        Need a rule to accept the 60143 port traffic.
+#
+#${IPTABLES} -A INPUT -j DROP
+
+
+
+Links
+=====
+One-to-one NAT
+http://www.dd-wrt.com/wiki/index.php/One-to-one_NAT
+
+RFC 1918
+http://tools.ietf.org/html/rfc1918
+
+Web interface
+http://www.dd-wrt.com/wiki/index.php/Web_interface
+
+broadcast adddress calculator  <== FIXME: Do this manually???
+http://www.subnet-calculator.com/
+
+Resources (One-to-one NAT, dd-wrt.com/)
+http://www.shorewall.net/NAT.htm
+http://www.dd-wrt.com/phpBB2/viewtopic.php?t=24555
+http://www.dd-wrt.com/phpBB2/viewtopic.php?p=400472#400472 
