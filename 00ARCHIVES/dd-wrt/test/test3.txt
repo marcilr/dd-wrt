@@ -1,0 +1,10 @@
+test3.txt
+Created Thu Jan 11 21:24:49 AKST 2007
+by Raymond E. Marcil
+
+1. Tried ping from malachite to turchoise over ethernet (baseline):
+ping 10.1.0.75 - Worked (obviously) ~0.1ms
+
+2. Plugged turchoise into wizzle (garage) - client router port 1.
+Tired ping from malachite to torchoise over wireless.
+ping 10.1.0.75 - Worked (Yeh Hah) ~1.1ms
