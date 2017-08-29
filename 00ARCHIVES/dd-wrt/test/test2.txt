@@ -1,0 +1,8 @@
+test2.txt
+Created Thu Jan 11 21:18:54 AKST 2007
+by Raymond E. Marcil
+
+Plugged malachite into wizzle (garage) - client router port 1.
+
+1. Logged into terminus with marcilr account.
+Tried ping 10.1.0.55 - Worked. ~2.0ms
