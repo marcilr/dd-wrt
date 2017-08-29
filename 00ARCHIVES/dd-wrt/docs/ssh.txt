@@ -1,0 +1,187 @@
+ssh.txt
+Created Sun Jul 31 20:06:08 AKDT 2011
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+SSH access from Internet 
+
+
+ssh to wizzle
+=============
+Must use ~/.ssh/id_dsa private key.
+
+$ ssh root@192.168.1.20
+DD-WRT v24 std (c) 2008 NewMedia-NET GmbH
+Release: 07/27/08 (SVN revision: 10011)
+==========================================================
+ 
+ ____  ___    __        ______ _____         ____  _  _ 
+ | _ \| _ \   \ \      / /  _ \_   _| __   _|___ \| || | 
+ || | || ||____\ \ /\ / /| |_) || |   \ \ / / __) | || |_ 
+ ||_| ||_||_____\ V  V / |  _ < | |    \ V / / __/|__   _| 
+ |___/|___/      \_/\_/  |_| \_\|_|     \_/ |_____|  |_| 
+ 
+                       DD-WRT v24
+                   http://www.dd-wrt.com
+ 
+==========================================================
+
+
+BusyBox v1.11.1 (2008-07-27 16:38:08 CEST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+root@wizzle:~#
+
+
+
+dd-wrt sshd configuration
+=========================
+Services > Services
+Secure Shell
+
+SSHd                   x Enable       Disable
+SSH TCP Forwarding       Enalbe     x Disable   
+Password Login         x Enable       Disable
+
+Authorized Keys
+Passed ~/.ssh/dsa2048_openssh.pub
+
+click Save
+click Apply Settings
+click Reboot Router
+
+Settings are successful.
+Unit is rebooting now. Please wait a moment..
+
+Login from malachite, to root@192.168.1.20 worked:
+
+marcilr@malachite:~/.ssh$ ssh root@192.168.1.20
+The authenticity of host '192.168.1.20 (192.168.1.20)' can't be established.
+RSA key fingerprint is 3a:14:8b:58:dc:4f:5c:73:ee:88:40:14:06:cd:6c:3e.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.1.20' (RSA) to the list of known hosts.
+DD-WRT v24 std (c) 2008 NewMedia-NET GmbH
+Release: 07/27/08 (SVN revision: 10011)
+==========================================================
+ 
+ ____  ___    __        ______ _____         ____  _  _ 
+ | _ \| _ \   \ \      / /  _ \_   _| __   _|___ \| || | 
+ || | || ||____\ \ /\ / /| |_) || |   \ \ / / __) | || |_ 
+ ||_| ||_||_____\ V  V / |  _ < | |    \ V / / __/|__   _| 
+ |___/|___/      \_/\_/  |_| \_\|_|     \_/ |_____|  |_| 
+ 
+                       DD-WRT v24
+                   http://www.dd-wrt.com
+ 
+==========================================================
+
+
+BusyBox v1.11.1 (2008-07-27 16:38:08 CEST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+root@wizzle:~# exit
+
+
+Disabled telnet
+===============
+Under Services > Services disable telnet:
+
+Telnet
+Telent     Enable     x Disabled
+
+
+Set admin account to marcil
+===========================
+NOTE: This *** broke *** the administrative login.
+
+Under Administration:
+
+    Router username: marcilr
+        router pass: the usual
+re-enter to confirm: the usual
+
+click Save
+click Reboot Router
+
+This broke the administrative login.  Was able to reset root's password back to prior value 
+by suing ssh to root@192.168.1.1 and using sshsetpasswd:
+
+root@wizzle:~# setuserpasswd root [prior password]
+
+
+
+Contents
+========
+1. Ensure SSH Enabled
+2. Enable Remote Access
+3. Disabling Remote Access
+4. SSH Password
+5. References
+
+
+Ensure SSH Enabled
+==================
+1. Goto the Services tab and the Services sub-tab on the Web Interface
+
+2. Enable "SSHd" is under the section titled "Secure Shell"
+
+3.'SSH TCP Forwarding' does not need to be enabled if you just want to connect 
+from the outside to your LAN.
+
+4. Choose an appropriate port (The default is 22, but it is recommended that 
+you change it to a non-standard port above 1024 for security reasons.  Remember 
+the port number, as you will need to enter it into your SSH client in order to 
+connect to the router)
+
+5. You can activate (less secure) password authorization and/or (recommended) 
+private/public key authorization.  More information about generating the keys 
+can be found here: [[1]].
+
+6. Save 
+
+
+Enable Remote Access
+====================
+1. Goto the Administration tab and the Management sub-tab on the Web Interface
+
+2. Enable "SSH Management" under the section titled "Remote Access"
+
+3. Enter the same port number as specified under (4) above. This opens the 
+port in the firewall.
+
+4. Save
+
+5. Reboot Router 
+
+Now you will be able to connect to your router's WAN IP from the internet using 
+an SSH client such as PuTTY. 
+
+
+Disabling Remote Access
+=======================
+If at any time you wish to disable SSH access from the WAN,
+
+1. Goto the Administration tab and the Management sub-tab on the Web Interface
+
+2. Disable "SSH Management" under the section titled "Remote Access"
+
+3. Apply Settings 
+
+
+SSH Password
+============
+1. When asked for the username, enter root (even if you changed username 
+in web interface)
+
+2. When asked for the password, enter your router's password 
+
+
+References
+==========
+http://hetos.de/sshtut.html 
+
+
+Links
+=====
+SSH access from Internet 
+http://www.dd-wrt.com/wiki/index.php/External_SSH
