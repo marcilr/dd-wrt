@@ -8,6 +8,14 @@ Filelist
 00ARCHIVES/
   Archives
 
+dd-wrt.txt
+  DD-WRT is a Linux based alternative OpenSource firmware suitable
+  for a great variety of WLAN routers and embedded systems.  The
+  main emphasis lies on providing the easiest possible handling
+  while at the same time supporting a great number of functionalities
+  within the framework of the respective hardware platform used.
+  http://www.dd-wrt.com/site/index
+
 links.txt
   dd-wrt related links
 
