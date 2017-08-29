@@ -1,0 +1,126 @@
+links.txt
+Created Wed Jul 27 17:05:26 AKDT 2011
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Links
+=====
+Block Incoming IP Using dd-wrt (iptables)
+http://tech.kulish.com/2010/11/27/block-incoming-ip-using-dd-wrt-iptables/
+
+Teach Your Router New Tricks With DD-WRT
+Posted by samzenpus on Wednesday September 28, @07:27PM
+from the new-tool dept. 
+http://news.slashdot.org/story/11/09/28/2228215/teach-your-router-new-tricks-with-dd-wrt
+
+Tomato is a fine, free (in all senses) alternative, and I personally love the 
+Tomato-USB [tomatousb.org] version.
+Tomato USB is an alternative Linux-based firmware for powering Broadcom-based 
+ethernet routers.  It is a modification of the famous Tomato firmware, with 
+additional built-in support for USB port, wireless-N mode support, support for 
+several newer router models, and various enhancements.
+http://www.tomatousb.org/
+
+dd-wrt home
+http://www.dd-wrt.com/site/index
+
+dd-wrt wiki
+http://www.dd-wrt.com/wiki/index.php/Main_Page
+
+dd-wrt glossary
+Nice info on wireless protocols
+http://www.dd-wrt.com/wiki/index.php/Glossary
+
+dd-wrt Switched Ports
+This page explains how to configure VLAN's properly by setting the nvram variables to 
+configure them because the GUI does not always do so correctly.  As far as I know this 
+only applies to Broadcom based hardware. 
+http://www.dd-wrt.com/wiki/index.php/Switched_Ports
+
+dd-wrt Multiple WLANs
+This guide teaches you how to broadcast multiple WLAN SSID's using virtual interfaces. 
+You can have different encryption settings for each WLAN and you can restrict what they 
+have access to.  You may also bridge a VLAN or VPN tunnel interface to the virtual 
+wireless interface. 
+http://www.dd-wrt.com/wiki/index.php/Multiple_WLANs
+
+Web interface
+dd-wrt wiki
+http://www.dd-wrt.com/wiki/index.php/Web_Interface
+
+ddr-wrt installation
+http://www.dd-wrt.com/wiki/index.php/Installation
+
+dd-wrt versions available.
+http://www.dd-wrt.com/wiki/index.php/What_is_DD-WRT%3F#File_Versions
+
+dd-wrt One-to-one NAT
+http://www.dd-wrt.com/wiki/index.php/One-to-one_NAT
+
+DD-WRT
+From Wikipedia, the free encyclopedia
+http://en.wikipedia.org/wiki/DD-WRT
+
+dd-wrt downloads - enter 'WRT54GL' for model
+manufacturer: Linksys
+v24 SP1 [Stable] Build 10020
+v24 preSP2 [Beta] Build 13064 (recommended)
+http://www.dd-wrt.com/site/support/router-database
+
+Plug for v24 preSP2 (Build13064)
+http://www.eggxpert.com/forums/thread/602325.aspx
+
+Peacock thread - THIS IS BROADCOM ONLY!
+http://www.dd-wrt.com/phpBB2/viewtopic.php?t=51486
+
+Hard reset or 30/30/30
+http://www.dd-wrt.com/wiki/index.php/Hard_reset_or_30/30/30
+
+Flashing with Web GUI 
+http://www.dd-wrt.com/wiki/index.php/Installation#Method_1:_Flashing_with_Web_GUI
+
+Method 2: Flashing with TFTP
+http://www.dd-wrt.com/wiki/index.php/Installation#Method_2:_Flashing_with_TFTP
+
+Method 3: Flashing with Command Line
+http://www.dd-wrt.com/wiki/index.php/Installation#Method_3:_Flashing_with_Command_Line
+
+Linsys WRT54GL        
+Install Instructions
+http://www.dd-wrt.com/wiki/index.php/Linksys_WRT54GL
+
+DD-WRT FAQ
+http://www.dd-wrt.com/wiki/index.php/Main_Pag
+
+Bridging WRT54GL
+Nice link with link to the next link.
+http://www.mybroadband.co.za/vb/showthread.php?t=49860
+
+WDS Linked router network <== Good stuff***
+Looks useful
+http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
+
+Linksys WRT54G/GL/GS/GX
+Wiki on flashing
+http://www.dd-wrt.com/wiki/index.php/Linksys_WRT54G/GL/GS/GX
+
+DD-WRT
+From Wikipedia, the free encyclopedia
+Has nice releases section.
+http://en.wikipedia.org/wiki/DD-WRT
+
+Installation
+http://www.dd-wrt.com/wiki/index.php/Installation
+
+Telnet/SSH and the Command Line
+http://www.dd-wrt.com/wiki/index.php/Telnet/SSH_and_the_Command_Line#Password_Logon_method
+
+Encryption - WPA/WPA2
+http://www.dd-wrt.com/wiki/index.php/WPA/WPA2
+
+SSH with DD-WRT
+http://www.allaboutjake.com/network/linksys/wrt54g/dd-wrt/ssh/
+
+Clock changes in Anchorage
+2nd Sun Mar - first Sun Nov
+http://www.timeanddate.com/worldclock/clockchange.html?n=18
