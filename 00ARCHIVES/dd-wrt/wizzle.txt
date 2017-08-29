@@ -1,0 +1,312 @@
+wizzle.txt
+Created Thu Jan 11 19:10:42 AKST 2007
+by Raymond E. Marcil
+
+
+Linksys-Cisco WRT54GL wireless router setup in garage as firewall.
+
+
+wizzle (garage)
+    wan ip: 69.178.10.210 
+       mac: 00:80:C8:B9:0A:AD (originally 0016B61C7DBB)
+      mask: 255.255.192.0
+   gateway: 69.178.0.1
+  local ip: 10.1.0.1
+      mask: 255.255.255.0
+  firmware: DD-WRT v23 SP1 Final (05/16/06) std
+       mac: 0016B61C7DBB    <== Update to 00:80:C8:B9:0A:AD
+       s/n: CL7A0F209509    <== Version 1.0, since 'CLA'
+ time zone: UTC-0800
+
+
+
+Implementation
+==============
+eth5:  69.178.10.210/255.255.192.0
+eth6:  10.1.0.1
+eth6:0 10.1.0.65
+eth7:  192.168.1.1
+
+
+Setup > Basic Setup
+===================
+DD-WRT basic setup.
+
+
+WAN Connection Type
+-------------------
+connection type: Static IP  (was Disabled)
+ wan ip address: 69.178.10.210
+    subnet mask: 255.255.192.0
+        gateway: 69.178.0.1
+   static dns 1: 209.165.131.12
+   static dns 2: 209.165.131.13
+   static dns 3: 0.0.0.0    <== Set to UAA dns???
+            STP: Enabled    <== What's this???
+
+
+Optional Settings
+-----------------
+router name: wizzle
+  host name: wizzle
+domain name: rockhounding.net
+        mtu: Auto
+
+
+Network Setup
+-------------
+local ip address: 10.1.0.1  
+     subnet mask: 255.255.255.0
+         gateway: 0.0.0.0    
+       local dns: 0.0.0.0
+
+
+WAN Port
+--------
+assign wan port to switch: <unchecked>
+
+
+Network Address Server Settings (DHCP)
+--------------------------------------
+  dhcp type: DHCP Server
+dhcp server: Enable   x Disable
+
+use dnsmasq for DHCP: <unchecked>
+ use dnsmasq for DNS: <unchecked>
+  dhcp-authoritative: <greyed out>
+
+
+Time Settings
+-------------
+       ntp client:   x enable   disable
+        time zone: UTC-08:00
+summer time (DST): 2nd Sun Mar - first Sun Nov
+   server ip/name: pool.ntp.org
+
+
+
+Setup > MAC Address Clone
+=========================
+Configure GCI recognized MAC for ip address 69.178.10.210  
+
+mac clone
+---------
+x enable   disable  <== Need to update
+
+clone wan mac: 00:80:C8:B9:0A:AD  (originally 00:16:B6:1C:7D:BC)
+
+FIXME: This is the mac of eth5 on the D-Link DFE-570TX 4-port card.
+       Need to update to other.
+
+Setup VLANS
+===========
+
+                Port
+VLAN             W   1   2   3   4   Signed to Bridge
+-----------------------------------------------
+0                    x   x   x   x   LAN
+1                x                   None
+Auto-Negotiate   x   x   x   x   x
+Enabled          x   x   x   x   x
+
+Wireless: None
+Links Aggregatrion on Ports 3 & 4: No
+
+
+Wireless > Basic Settings
+=========================
+wireless network mode: Disabled
+
+
+NAT/QoS > Port Forwarding
+=========================
+
+Port Forward
+------------
+                             Protocol
+Application   Port from   tcp, udp, both    IP Address   Port to   Enable
+------------------------------------------------------------------
+ssh           60143             both        10.1.0.65    22        x
+
+FIXME: Change wizzle port to 50143 and add port forward of 22 to malachite
+       at 10.1.0.55
+
+
+
+Status > Router
+===============
+
+Router Information
+------------------
+
+System
+------
+     Router Name: wizzle
+    Router Model: Linksys WRT54G/GL/GS
+Firmware Version: DD-WRT v24-sp1 (07/27/08) std - build 10011
+     MAC Address: 00:16:B6:1C:7D:BC <== Need to update
+       Host Name: wizzle 
+ WAN Domain Name: rockhounding.net  
+ LAN Domain Name: <blank>
+    Current Time: Sat, 06 Aug 2011 13:36:01 
+          Uptime: 5 days, 16:03  
+
+
+CPU
+--- 
+   CPU Model: Broadcom BCM5352 chip rev 0 
+   CPU Clock: 200 MHz
+Load Average: 0.14, 0.19, 0.12  (15%)
+
+
+Memory
+------
+Total Available: 13048 kB / 16384 kB (80%)
+           Free:  1876 kB / 13048 kB (14%)
+           Used: 11172 kB / 13048 kB (86%)
+        Buffers: 1544 kB / 11172 kB (14%)
+
+
+
+Sat Aug  6 13:25:15 AKDT 2011
+=============================
+1. On bornite disabled eth5 69.178.10.210, mac 255.255.192.0
+under /etc/network/interfaces.
+
+2. On bornite disabled eth6:0 10.1.0.65
+
+3. On bornite changed eth6 10.1.0.1 to 10.1.0.65
+
+
+
+
+Sun Jul 31 21:47:40 AKDT 2011
+=============================
+o In dd-wrt under Wireless > Basic Settings set Wireless Network Mode: Disabled
+to disable wireless on firewall.
+
+Wireless Network Mode: Disabled   <== Selected to disable wireless.
+                       Mixed 
+                       B-Only 
+                       G-ONly
+
+o In dd-wrt under Setup > Basic Setup disabled DHCP server:
+
+DHCP Server:     Enable     x Disable
+
+
+Thu Jan 11 19:10:42 AKST 2007
+=============================
+MAC (after flash): 
+  Status => Sys-Info
+  LAN MAC:      00:16:B6:1C:7D:BB 
+  WAN MAC:      00:16:B6:1C:7D:BC 
+  Wireless MAC: 00:16:B6:1C:7D:BD  
+
+MAC (before flash): 00:16:B6:1C:7D:BB
+
+
+Configuration
+=============
+1. Assume already at factory defaults.
+2. Skipped - Assumed at factory default settings.
+3. Set IP address to 192.168.1.2. 
+Setup => Basic Setup - Local IP Address: 192.168.1.2
+4. Change the Internet Connection Type to Disable on the client 
+router. Setup -> Basic Setup -> Internet Setup 
+-> Internet Connection Type -> Disable
+
+Client so set Disable.
+
+5. Set the Gateway IP address of the client router to the LAN IP 
+address of the host router. Setup -> Basic Setup -> Network Setup 
+-> Router IP -> Gateway
+
+Client so set to 192.168.1.1
+
+6. For each router, under Setup -> Basic Setup -- Network Address 
+Server Settings (DHCP) -- Start IP Address, you may want to set 
+different starting address for the different routers. For example 
+host 192.168.1.1 starts DHCP at 100 and client 192.168.1.2 starts at 
+200. This will allow you to enable DHCP on both routers and know which 
+router you are connecting to. This is helpful when connecting to your 
+network with a wireless laptop so you know which router it is 
+connecting to and for changing wireless power settings (both laptop 
+and routers). Alternately, you can disable DHCP on the client
+router(s) and have only the gateway perform DHCP services.
+
+Client in garage (wireless) so set DHCP Server: Disable
+
+7. On the client router, under Setup -> Basic Setup -- Network 
+Address Server Settings (DHCP) -- Static DNS 1,2,3 enter the DNS 
+settings provided by your ISP. These can also be found from the 
+host router under Status -> Router -- Internet.
+
+Skip since DHCP disabled on client?
+
+8. Turn off the firewall on the client router. Security -> 
+Firewall -> Firewall Protection -> Disable
+
+9. Turn off security on both routers (this should already be done 
+if you reset as above). Security can be re-enabled after all other 
+steps are complete, but in order to minimize troubleshooting, it's 
+best to get things setup with no security active. Wireless 
+-> Wireless Security -> Security Mode -> Disabled
+
+Security mode disable by default.
+
+10. Put both routers into AP mode and on the same channel. 
+Wireless -> Basic Settings
+  Wireless Mode:     AP             # Default setting
+  Wireless Channel:  6 - 2.437Ghz   # Default setting
+
+11. Under Wireless -> Basic Settings, set the SSID to your liking. 
+For WPA WDS, the SSID for the routers needs to be the same. For 
+WEP, different SSIDs can make troubleshooting easier. 
+
+Planning on WDS so set to "rockhounding"
+
+12. If you plan to use WPA later, then select G-only in Wireless 
+-> Basic Settings. You cannot use B-only with WDS.
+
+Set Wireless Network Mode to G-Only.
+
+13. Open WDS configuration on both routers. Wireless -> WDS
+
+14. On each router, you will see its wireless MAC address at 
+the top of the Wireless -> WDS page. Put each router's MAC 
+into the table of the other router, and select LAN for the 
+type. Note that this MAC address is different from the one 
+that may be printed on your case!
+
+Added wozzle (computer room) - host/internet gateway
+  Wireles MAC: 00:16:B6:1C:7D:BA
+
+15. There is no need to enable Lazy WDS or WDS subnet on 
+either router.
+
+16. Test that you can ping the gateway from the client. Note 
+that it may take a short amount of time for the WDS to be 
+established, and you may need to reboot both the gateway and 
+the client.
+
+Works! See test files for ping results.
+
+
+17. Enable encryption now, if you like (highly recommended).
+from: http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
+
+Tried this (did not work):
+Set Wireless -> Wireless Security
+Security-Mode: Pre-Shared Key
+WPA Algorithms: AES
+WPA Shared Key: ****
+
+from: wds.txt
+
+
+Links
+=====
+WDS Linked router network <== Good stuff***
+Looks useful
+http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
