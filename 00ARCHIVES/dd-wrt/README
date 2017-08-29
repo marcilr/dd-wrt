@@ -1,0 +1,86 @@
+README
+Created Wed Jan 10 18:20:27 AKST 2007
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+
+Have two Cisco Linksys WRT54GL wireless routes configured with dd-wrt.
+
+DD-WRT is a Linux based alternative OpenSource firmware suitable for a great variety of WLAN 
+routers and embedded systems.  The main emphasis lies on providing the easiest possible handling 
+while at the same time supporting a great number of functionalities within the framework of the 
+respective hardware platform used.
+
+dd-wrt.com/
+
+
+On Jan 11, 2007 installed dd-wrt.v23_mini_generic.bin, from dd-wrt.v23_sp1_mini.zip,
+then standard edition dd-wrt.v23_generic.bin, from dd-wrt.v23_sp1_standard.zip
+on wireless router and firewall.
+
+
+wozzle
+======
+location: computer room
+ purpose: wireless access
+ address: 192.168.1.1
+
+
+wizzle
+======
+location: garage
+ purpose: firewall and wireless access.
+ address: 192.168.1.2
+
+
+WRT54GL Specifications
+======================
+Firmware Version: v4.30.0 
+CPU Model: Broadcom BCM5352 chip rev 0
+CPU Clock: 200 MHz
+
+
+Releases
+========
+The major releases to date include:
+
+DD-WRT v23 Service Pack 1 (SP1) was released on May 16, 2006.  Much of the code was overhauled 
+  and rewritten during the development of this release, and many new features were added.
+
+DD-WRT v23 Service Pack 2 (SP2) was released on September 14, 2006.  The interface was 
+  overhauled, and some new features were added.  Some additional router models are supported, 
+  with more planned.
+
+DD-WRT v24 was released on May 18, 2008. It allows up to 16 virtual interfaces with different 
+  SSIDs and encryption protocols.  There is support for some PowerPC, IXP425-based router boards, 
+  Atheros WiSOC and X86 based systems.  There is also limited support for routers with low flash 
+  memory (ex. WRT54Gv8 or WRT54GSv7).
+
+DD-WRT v24 Service Pack 1 (SP1) was released on July 26, 2008. Urgent DNS security issue fixed 
+  for dnsmasq, Site Survey security fixes, longer passwords, and flexible OpenVPN configurations. 
+  New hardware supported, including WRT300 v1.1, WRT310N, WRT600N, Tonze AP42X Pronghorn SBC, 
+  Ubiquiti LSX and Netgear, Belkin and USR devices.  <== This could be the one.
+
+DD-WRT v24 Service Pack 2 (SP2) is in development at the time of this writing.
+
+wikipedia.org/
+
+Filelist
+========
+/data/00TARBALLS/dd-wrt/
+  dd-wrt images on bornite share.
+
+
+Google: DD-WRT v24 Service Pack 1 (SP1) wrt54GL
+
+Links
+=====
+DD-WRT
+From Wikipedia, the free encyclopedia
+http://en.wikipedia.org/wiki/DD-WRT
+
+"I have just flashed my WRT54GL with the standard flavour of V24_SP1, and so far so good."
+http://www.dd-wrt.com/phpBB2/viewtopic.php?p=195399&sid=cea2dec0360e8138a895569082defc10
+
+DD_WRT Home
+http://www.dd-wrt.com/site/index
