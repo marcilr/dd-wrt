@@ -1,0 +1,69 @@
+releases.txt                                                     
+Created Fri Jul 29 20:19:41 AKDT 2011
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Using dd-wrt for Cisco Linksys WRT54GL wireless router based firewall.
+
+
+Sold on the latest DD-WRT v24 Service Pack 2 (SP2) beta.  Sounds sweet.
+
+             latest stable: v24 SP1 (Build10020)
+latest development release: v24 preSP2 (Build13064)
+
+
+
+Releases
+========
+The major releases to date include:
+
+DD-WRT v23 Service Pack 1 (SP1) was released on May 16, 2006. Much of the code was overhauled
+and rewritten during the development of this release, and many new features were added.
+
+DD-WRT v23 Service Pack 2 (SP2) was released on September 14, 2006. The interface was overhauled,
+and some new features were added. Some additional router models are supported, with more planned.
+
+DD-WRT v24 was released on May 18, 2008. It allows up to 16 virtual interfaces with different
+SSIDs and encryption protocols. There is support for some PowerPC, IXP425-based router boards,
+Atheros WiSOC and X86 based systems. There is also limited support for routers with low flash
+memory (ex. WRT54Gv8 or WRT54GSv7).
+
+DD-WRT v24 Service Pack 1 (SP1) was released on July 26, 2008. Urgent DNS security issue fixed
+for dnsmasq, Site Survey security fixes, longer passwords, and flexible OpenVPN configurations.
+New hardware supported, including WRT300 v1.1, WRT310N, WRT600N, Tonze AP42X Pronghorn SBC,
+Ubiquiti LSX and Netgear, Belkin and USR devices.
+
+DD-WRT v24 Service Pack 2 (SP2) is in development at the time of this writing.
+
+wikipedia.org/
+
+v24 preSP2 (Build13064)
+=======================
+Oh yah.
+
+I've had dd-wrt for a year now and it offers way more potential that the router can provide with
+an easy web interface. Download the latest sp2 build. (v24 preSP2 (Build13064))
+
+Flash with this first
+  http://www.dd-wrt.com/routerdb/de/download/Linksys/WRT54GL/1.0/1.1/dd-wrt.v24_mini_generic.bin/2123
+
+Then in ddwrt flash with this again
+  http://www.dd-wrt.com/routerdb/de/download/Linksys/WRT54GL/1.0/1.1/dd-wrt.v24_std_generic.bin/1963
+
+eggxpert.com/
+
+
+Links
+=====
+DD-WRT
+From Wikipedia, the free encyclopedia
+http://en.wikipedia.org/wiki/DD-WRT
+
+dd-wrt downloads - enter 'WRT54GL' for model
+manufacturer: Linksys
+v24 SP1 [Stable] Build 10020
+v24 preSP2 [Beta] Build 13064 (recommended)
+http://www.dd-wrt.com/site/support/router-database
+
+Plug for  v24 preSP2 (Build13064)
+http://www.eggxpert.com/forums/thread/602325.aspx
