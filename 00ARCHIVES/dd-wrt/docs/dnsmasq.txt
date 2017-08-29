@@ -1,0 +1,39 @@
+dnsmasq.txt
+Created Mon Aug  1 09:56:22 AKDT 2011
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Dnsmasq is a lightweight, easy to configure DNS forwarder and DHCP server. It is designed 
+to provide DNS and (optionally) DHCP to a small network.  It can serve the names of local 
+machines which are not in the global DNS.  The DHCP server integrates with the DNS server 
+and allows machines with DHCP-allocated addresses to appear in the DNS with names configured 
+either in each host or in a central configuration file.  Dnsmasq supports static and dynamic 
+DHCP leases and BOOTP/TFTP for network booting of diskless machines. 
+
+thekelleys.org.uk/
+
+
+DNSMasq Options
+===============
+Assuming your LAN domain is called 'lan', put the following lines in the 
+"additional DNSMasq options" field: 
+
+domain=lan
+local=/lan/
+expand-hosts
+
+
+FIXME: Need to update above with correct web interface path.
+
+
+
+Links
+=====
+Dnsmasq home
+http://www.thekelleys.org.uk/dnsmasq/doc.html
+
+Dnsmaq
+http://freshmeat.net/search?q=dnsmasq&submit=Search
+
+DNSMasq as DHCP server
+http://www.dd-wrt.com/wiki/index.php/DNSMasq_as_DHCP_server
