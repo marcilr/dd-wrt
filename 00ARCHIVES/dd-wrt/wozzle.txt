@@ -1,0 +1,112 @@
+wozzle.txt
+Created Thu Jan 11 19:12:55 AKST 2007
+by Raymond E. Marcil
+
+
+wozzle (computer room) - host/internet gateway
+S/N: CL7A0F209508
+
+IP: 192.168.1.1
+MAC (after flash) 
+  Status => Sys-Info
+  LAN MAC:      00:16:B6:1C:7D:B8 
+  WAN MAC:      00:16:B6:1C:7D:B9 
+  Wireless MAC: 00:16:B6:1C:7D:BA  
+ 
+MAC (before flash): 00:16:B6:1C:7D:B8
+
+
+Configuration:
+=============
+1. Assume already at factory defaults.
+2. Skipped - Assumed at factory default settings.
+3. Skipped - IP address already 192.168.1.1
+4. Skipped - client only.
+5. Skipped - client only.
+6. For each router, under Setup -> Basic Setup -- Network Address 
+Server Settings (DHCP) -- Start IP Address, you may want to set 
+different starting address for the different routers. For example 
+host 192.168.1.1 starts DHCP at 100 and client 192.168.1.2 starts at 
+200. This will allow you to enable DHCP on both routers and know which 
+router you are connecting to. This is helpful when connecting to your 
+network with a wireless laptop so you know which router it is 
+connecting to and for changing wireless power settings (both laptop 
+and routers). Alternately, you can disable DHCP on the client
+router(s) and have only the gateway perform DHCP services.
+
+Start IP Address set to 192.168.1.100
+
+7. Skipped - client only. Do I need these since this box is 
+providing DHCP to wireless clients?
+8. Skipped - client only.
+9. Turn off security on both routers (this should already be done 
+if you reset as above). Security can be re-enabled after all other 
+steps are complete, but in order to minimize troubleshooting, it's 
+best to get things setup with no security active. 
+Wireless -> Wireless Security -> Security Mode -> Disabled
+
+Security mode disable by default.
+
+10. Put both routers into AP mode and on the same channel. 
+Wireless -> Basic Settings
+  Wireless Mode:     AP             # Default setting
+  Wireless Channel:  6 - 2.437Ghz   # Default setting
+
+11. Under Wireless -> Basic Settings, set the SSID to your liking. 
+For WPA WDS, the SSID for the routers needs to be the same. For 
+WEP, different SSIDs can make troubleshooting easier. 
+
+Planning on WDS so set to "rockhounding"
+
+12. If you plan to use WPA later, then select G-only in 
+Wireless -> Basic Settings. You cannot use B-only with WDS.
+
+Set Wireless Network Mode to G-Only.
+
+13. Open WDS configuration on both routers. Wireless -> WDS
+
+14. On each router, you will see its wireless MAC address at 
+the top of the Wireless -> WDS page. Put each router's MAC 
+into the table of the other router, and select LAN for the 
+type. Note that this MAC address is different from the one 
+that may be printed on your case!
+
+Added wizzle (garage) - client router
+  Wireles MAC: 00:16:B6:1C:7D:BD
+
+15. There is no need to enable Lazy WDS or WDS subnet on 
+either router.
+
+16. Test that you can ping the gateway from the client. Note 
+that it may take a short amount of time for the WDS to be 
+established, and you may need to reboot both the gateway and 
+the client.
+
+Works! See test files for ping results.
+
+17. Enable encryption now, if you like (highly recommended).
+from: http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
+
+Tried this (did not work):
+Set Wireless -> Wireless Security
+Security-Mode: Pre-Shared Key
+WPA Algorithms: AES
+WPA Shared Key: ****
+
+
+Additional: 
+==========
+1. Setup -> Basic Setup - Did not set gateway since the
+goal is a bridge. 
+2. Setup -> Basic Setup - Connection Type?
+Set to disable on client. Same for host/internet gateway.
+
+from: wds.txt
+
+
+      
+Links:
+=====
+WDS Linked router network <== Good stuff***
+Looks useful
+http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
