@@ -1,0 +1,108 @@
+wds.txt
+Created Thu Jan 11 06:43:30 AKST 2007
+by Raymond E. Marcil
+
+
+WDS Linked router network
+=========================
+WDS (Wireless Distribution Service) creates a wireless backbone link 
+between multiple access points that are part of the same wireless 
+network. This allows a wireless network to be expanded using 
+multiple access points without the need for a wired backbone to link 
+them, as is traditionally required. The WDS-enabled access points 
+can accept wireless clients (e.g. wireless laptop users) just as 
+traditional APs would. There is no free lunch, however: WDS consumes 
+wireless bandwidth normally available to wireless clients.
+
+In regards to integration with DD-WRT, it is confirmed working with 
+WEP and WPA enabled. However, WPA2 is not supported. 
+
+
+Setup
+-----
+1. Save the configuration on both routers: Administration -> Backup. 
+Click "Backup" button and follow prompts so save nvram backup files, 
+i.e. nvram_host.bin, and nvram_client.bin. The configurations can be 
+restored if the setup doesn't work out and you need to quickly get 
+back to a different (working) configuration. 
+
+Checking wrt54gl-ug.pdf manual, page 34, backup is under
+Administration -> Config Management -> "Backup" button.
+Backed up configs under backup/cfg directory.
+
+2. Reset both routers to factory default settings so other settings 
+will not have a possible conflict: Administration -> Factory Default - 
+select yes - click "Save Settings" button.
+
+3. Give both the routers a different IP address, i.e. 192.168.1.1 
+(host/internet gateway) and 192.168.1.2 ("client router") on the same 
+subnet. Setup -> Basic Setup
+
+4. Change the Internet Connection Type to Disable on the client 
+router. Setup -> Basic Setup -> Internet Setup -> Internet Connection 
+Type -> Disable
+
+5. Set the Gateway IP address of the client router to the LAN IP 
+address of the host router. Setup -> Basic Setup -> Network Setup 
+-> Router IP -> Gateway
+
+6. For each router, under Setup -> Basic Setup -- Network Address 
+Server Settings (DHCP) -- Start IP Address, you may want to set 
+different starting address for the different routers. For example 
+host 192.168.1.1 starts DHCP at 100 and client 192.168.1.2 starts at 
+200. This will allow you to enable DHCP on both routers and know which 
+router you are connecting to. This is helpful when connecting to your 
+network with a wireless laptop so you know which router it is 
+connecting to and for changing wireless power settings (both laptop 
+and routers). Alternately, you can disable DHCP on the client
+router(s) and have only the gateway perform DHCP services.
+
+7. On the client router, under Setup -> Basic Setup -- Network 
+Address Server Settings (DHCP) -- Static DNS 1,2,3 enter the DNS 
+settings provided by your ISP. These can also be found from the 
+host router under Status -> Router -- Internet.
+
+8. Turn off the firewall on the client router. Security -> 
+Firewall -> Firewall Protection -> Disable
+
+9. Turn off security on both routers (this should already be done 
+if you reset as above). Security can be re-enabled after all other 
+steps are complete, but in order to minimize troubleshooting, it's 
+best to get things setup with no security active. Wireless 
+-> Wireless Security -> Security Mode -> Disabled
+
+10. Put both routers into AP mode and on the same channel. 
+Wireless -> Basic Settings
+
+11. Under Wireless -> Basic Settings, set the SSID to your liking. 
+For WPA WDS, the SSID for the routers needs to be the same. For 
+WEP, different SSIDs can make troubleshooting easier. 
+
+12. If you plan to use WPA later, then select G-only in Wireless 
+-> Basic Settings. You cannot use B-only with WDS.
+
+13. Open WDS configuration on both routers. Wireless -> WDS 
+
+14. On each router, you will see its wireless MAC address at 
+the top of the Wireless -> WDS page. Put each router's MAC 
+into the table of the other router, and select LAN for the 
+type. Note that this MAC address is different from the one 
+that may be printed on your case!
+
+15. There is no need to enable Lazy WDS or WDS subnet on 
+either router.
+
+16. Test that you can ping the gateway from the client. Note 
+that it may take a short amount of time for the WDS to be 
+established, and you may need to reboot both the gateway and 
+the client.
+
+17. Enable encryption now, if you like (highly recommended).
+from: http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
+
+
+Links
+=====
+WDS Linked router network <== Good stuff***
+Looks useful
+http://www.dd-wrt.com/wiki/index.php/WDS_Linked_router_network
