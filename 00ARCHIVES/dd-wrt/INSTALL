@@ -1,0 +1,124 @@
+flashing.txt
+Created Thu Jan 11 19:31:08 AKST 2007
+by Raymond E. Marcil
+
+
+
+
+Using dd-wrt for Cisco Linksys WRT54GL wireless router based firewall.
+
+Sold on the latest DD-WRT v24 Service Pack 2 (SP2) beta.  Sounds sweet.
+
+             latest stable: v24 SP1 (Build10020)
+latest development release: v24 preSP2 (Build13064)
+
+
+
+Flashing Router
+===============
+Three methods of flashing:
+
+1. Flashing with Web
+On DD-WRT v23 SP1 Final (05/16/06) std see:
+  Administration > Firmware Upgrade
+
+2. Flashing with TFTP
+
+3. Flashing with Command Line
+
+
+Sat Jul 30 18:24:51 AKDT 2011
+=============================
+1. On wizzle, ip 192.168.1.1, under Administration > Firmware Upgrade > Browse...
+selected 00TARBALLS/dd-wrt/v24-SP1-Stable-Build-10020/dd-wrt.v24_mini_generic.bin
+
+2. At Sat Jul 30 18:37:55 AKDT 2011 - clicked Upgrade
+
+3. At Sat Jul 30 18:39:13 AKDT 2011 - Unit rebooted and looks good.
+
+4. At router menu now see firmware: DD-WRT v24-sp1 (07/27/08) mini.
+
+At dd-rt control panel got: 
+
+"Your Router is currently not protected and uses an unsafe default username 
+and password combination, please change it using the following dialog:
+
+Router Password
+    Router Username: root 
+    Router Password: admin
+Re-enter to confirm: admin
+
+click Change Password
+
+Got right back to dd-wrt control panel.
+
+5. Unplugged power and rebooted.
+
+6. Repeated the flash procedure for dd-wrt.v24_std_generic.bin
+
+7. Sat Jul 30 18:53:17 AKDT 2011 - Clicked update.
+Timer dispalyed for 300s...
+
+8. Sat Jul 30 18:54:54 AKDT 2011 - Not 300s, rebooted.
+
+9. Now displays: firmware: DD-WRT v24-sp1 (07/27/08) std
+
+
+o The default root/admin account worked for login.
+
+o wizzle displays as firmware DD-WRT v23 SP1 Final (05/16/06) std.
+
+o Determined that wizzle (garage), s/n: CL7A0F209509, has ip 192.168.1.1
+Changed bornite's eth7 from 192.168.1.1 to 192.168.100 to alleviate conflict.
+
+
+
+Thu Jan 11 19:31:08 AKST 2007
+=============================
+Flashing WRT54GL - I used my workstation do the update.  
+Notes on upgrading firmware in wrt54gl-ug.pdf, appendix C, 
+Upgrading Firmware, page 78.
+
+Linux 2.6.19.1, firefox 1.5.0.9, SP2.
+
+1. Reset the new router to Factory default
+2. Access via web browsers at 192.168.1.1, user/pass admin/admin.
+3. Flashed mini edition dd-wrt.v23_mini_generic.bin 
+from dd-wrt.v23_sp1_mini.zip.
+
+Administration tab 
+  -> Firmware Upgrade 
+  -> Browse button select dd-wrt.v23_mini_generic.bin 
+  -> Upgrade button.
+
+4. Restart router, i.e. unplug power.
+
+5. Flashed standard edition dd-wrt.v23_generic.bin 
+from dd-wrt.v23_sp1_standard.zip.
+
+Administration tab
+  -> Firmware Upgrade
+  -> Browse button select dd-wrt.v23_generic.bin
+  -> Upgrade button.
+
+6. Default user/pass at 192.168.1.1 is root/admin.
+
+7. Updated to the standard V23SP1 Firmware, no issues.
+
+
+
+Links
+=====
+Linksys WRT54GL 
+Install Instructions
+http://www.dd-wrt.com/wiki/index.php/Linksys_WRT54GL
+
+dd-wrt versions available.
+http://www.dd-wrt.com/wiki/index.php/What_is_DD-WRT%3F#File_Versions
+
+Linksys WRT54G/GL/GS/GX
+Wiki on flashing
+http://www.dd-wrt.com/wiki/index.php/Linksys_WRT54G/GL/GS/GX
+
+Installation
+http://www.dd-wrt.com/wiki/index.php/Installation
