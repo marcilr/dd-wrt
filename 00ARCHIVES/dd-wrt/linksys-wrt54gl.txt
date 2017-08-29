@@ -1,0 +1,237 @@
+linksys-wrt54gl.txt
+Created Sat Jul 30 14:22:27 AKDT 201
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Working on getting cisco linksys WRT54GL flashed with latest development release 
+v24 preSP2 (Build13064).
+
+
+Contents
+========
+1 Device Photos
+2 Hardware
+3 Firmware
+  3.1 Installation process from a stock Linksys firmware
+      3.1.1 Other install notes
+  3.2 Troubleshooting
+4 Running NEWD2 and/or K26 on the GL model
+
+
+Hardware
+========
+Platform: Broadcom MIPS
+     CPU: Broadcom BCM5452 at 200 MHz (130nm construction) Broadcom Product Page
+
+overclocking support in DD-WRT (verified in v24 SP1)
+
+/proc/cpuinfo output 
+--------------------
+system type             : Broadcom BCM947XX
+processor               : 0
+cpu model               : BCM3302 V0.8
+BogoMIPS                : 199.47
+wait instruction        : no
+microsecond timers      : yes
+tlb_entries             : 32
+extra interrupt vector  : no
+hardware watchpoint     : no
+VCED exceptions         : not available
+VCEI exceptions         : not available
+unaligned_instructions  : 1501948
+dcache hits             : 3604983805
+dcache misses           : 1069308396
+icache hits             : 1669945160
+icache misses           : 616661321
+instructions            : 0
+
+         Flash: 4 MB NAND, single chip
+ System Memory: 16 MB 16-bit DDR SDRAM
+           USB: None
+Wireless Radio: Broadcom BCM43xx 802.11b/g
+       Antenna: Dual folding, removable, rotating antennas 
+                (NOTE: it has been reported as of September 26, 2009, that for up to a year and a
+                  half ago until the present, the version of the WRT54GL you have acquired in that
+                  time period may have molded antennas which are NOT REMOVABLE)
+Network Switch: (4) 10/100 LAN + (1) 10/100 WAN, Auto MDX/MDI-X (Integrated in CPU)
+ Serial pinout: Yes
+   JTAG pinout: Yes 
+
+
+Firmware
+========
+Put the MICRO or MINI build on this router first if you're upgrading from the stock Linksys 
+firmware -- the consequences of not following this advice can be VERY GRAVE!  Then you can upgrade
+to a STANDARD, VOIP or VPN build, according to your needs.  DO NOT try to load a MEGA build on 
+this router. MEGA builds are too large for this router!
+
+  Q: Why can't I directly upgrade from a stock Linksys firmware to DD-WRT versions other than 
+     MICRO or MINI? 
+  A: The stock firmware from Linksys on the WRT54GL v1 and 1.1 won't accept a firmware image over 
+     3MB in size (you will get the error: "Upgrade are failed! [sic]" if you try).  So you will 
+     need to flash the micro or mini versions of DD-WRT onto the router BEFORE flashing the 
+     standard, voip, and vpn versions.  Be sure to hard reset your router to restore firmware 
+     defaults both BEFORE AND AFTER you upgrade even to the micro or mini DD-WRT. 
+
+  Q: Why can't I load a MEGA build? 
+  A: The WRT54GL has only 4MB for flashing firmware, which is not enough space for a mega build. 
+     If you try to load a mega build onto this router anyway, you may turn your router into a 
+     brick!  I don't know if you can recover your router using TFTP or other methods if you do 
+     this, because it's never happened to me. 
+
+NOTE: Check the Peacock thread for recommended build numbers if unsure.
+
+Also check the Firmware Recommendations
+
+
+Installation process from a stock Linksys firmware
+==================================================
+1. READ the peacock announcement linked above.
+2. Do a hard reset
+
+You can HARD RESET by holding down the reset button on the back of the router for 30 seconds, 
+then pulling the power cord for 30 seconds while STILL holding the reset button, and then 
+plugging in the power cord for a final 30 seconds while STILL holding the reset button. You 
+will hold the reset button in for 90 seconds without releasing it.  Then release the reset 
+button and wait for the router to finish doing whatever it's going to do.  Usually the WLAN light 
+will come on close to last in the boot sequence.  Sometimes, however, the POWER light will keep 
+flashing for a good while.  Either way, once you're sure the router has done its thing, power 
+cycle the router, by unplugging and replugging the power connector in the back of the router. 
+There's no need to wait between unplugging and replugging. 
+
+3. Download the NEWD_MINI build generic 12548 Eko Build from here: 
+  ftp://dd-wrt.com/others/eko/V24_TNG/svn12548/dd-wrt.v24-12548_NEWD_mini.bin
+
+4. You should check the MD5 HASH of the firmware after downloading it if it is available for your 
+build.  see Hashes & Checksums.  Turn off and disable your firewall, turn off and disable your 
+antivirus, and sign into your linksys router with your webbrowser. 
+
+5. Use the firmware upgrade web interface to update your router with dd-wrt.  DO NOT close your 
+browser, DO NOT interrupt the process, be EXTREMELY PATIENT, even after the firmware is already 
+supposedly upgraded.  Wait around for a while, and make sure it settles down and is definitely 
+finished doing whatever it's going to do.  The router needs time to rebuild the NVRAM after it 
+has been flashed, and if you interrupt this you will regret it!
+
+6. When three or so minutes pass and the wlan light comes back on, try and open the dd-wrt pages
+at 192.168.1.1.  If it opens, the process is complete.  You should be asked to reset the password.
+Type username and passphrase in carefully.
+
+7. Decide if you would like to keep the MINI version, or change to MICRO, STANDARD, VOIP, or VPN 
+versions.  DO NOT try to load a MEGA build on this router (see above). If you are keeping MINI, 
+you are done, otherwise, continue
+
+Read about the different versions' features here: What is DD-WRT?#File Versions.  If you won't be 
+needing the features in the larger versions such as standard, you may be able to increase the 
+responsiveness of your router by getting the smallest version that includes the features you need.
+Also, you can always update to a larger version later if down the line you need the extra features. 
+
+8. Power cycle the router
+
+9. Do a hard reset
+
+10. Install the version of dd-wrt you want (again, you can't use MEGA... really)
+
+11. Wait again for the process to complete and the lights to return to normal, and the webgui to 
+be accessible at 192.168.1.1 showing the updated firmware.  Give it at least 3 to five minutes.
+
+12. Power cycle the router.
+
+13. Do a hard reset 
+
+
+Other install notes
+===================
+If you are upgrading from the web interface, you should use the GENERIC versions. For updating by
+webgui, EKO build 12548 Newd_Mini.bin is the recommended build for this router.  It works well.
+You can also upgrade to 12548 Newd_Std.bin AFTER you have put on the mini version.  Here is a link
+to the mini version download: 
+  ftp://dd-wrt.com/others/eko/V24_TNG/svn12548/dd-wrt.v24-12548_NEWD_mini.bin.
+
+If you are upgrading via TFTP, you need the versions that contain headers with hardware info in
+them, called a trailed version of the file.  This means a file with wrt54g in the name.  Here is 
+a great version for this router. 
+  ftp://dd-wrt.com/others/eko/BrainSlayer-V24-preSP2/older/09-08-09-r12874/broadcom/dd-wrt.v24_mini_wrt54g.bin 
+
+
+Troubleshooting
+===============
+If you make the mistake of not upgrading with the MICRO or MINI version first, you will end up 
+with a router that has a flashing power light.  You will be able to ping the router, but will not 
+be able to access the web interface.  You will then have to TFTP the LINKSYS firmware (NOT THE 
+DD-WRT FIRMWARE) back on to the router to rescue it.  You can connect your modem directly to your 
+computer, and download the Linksys firmware from their site.  Once you have rescued your router by
+restoring the Linksys firmware, you can then try upgrading to DD-WRT again (if you're still up for
+it!).  THIS TIME, use the micro or mini version first!
+
+Instructions on restoring your router are here: Recover from a Bad Flash
+
+A few quotes from the following link: 
+  http://forums.whirlpool.net.au/forum-replies-archive.cfm/686075.html
+
+Q: I'm a bit worried about how many times routers can be re-flashed with firmware - is there a 
+limit?? 
+A: There really isn't a limit to number of times you can flash. (within reason) Flash memory does 
+have a life.  Like your usb stick, 100,000 times or 10,000 times, I don't remember but it is alot,
+otherwise they would be useless.
+
+Don't go and flash your router 10,000 times and test this person's assertion literally.  But it 
+appears that a few extra flashes here and there are not going to turn your router into a 
+paperweight.  So there's no need to worry about switching from micro to mini or mini to standard, 
+or in reverse, as your needs change. 
+
+
+Running NEWD2 and/or K26 on the GL model
+========================================
+
+WARNING
+-------
+This is ONLY for those that can recover using JTAG, and is an unnecessary hack for people who want
+to try the k26 driver.  (God only knows why a person would on this router.) If this goes wrong...
+you MUST use JTAG to recover... you've been warned... you are altering the CFE of the router.
+
+The WRT54GL router must already have dd-wrt installed before you begin this process.
+
+1- First start by backing up your current CFE.BIN file and keep it in a safe place
+
+2- Enable ssh services in the dd-wrt configuration at 192.168.1.1.  This is REQUIRED for WinSCP to
+work (step9)
+
+3- Next you will need to download the "new" CFE for the WRT54GL model located here.  This is an 
+altered CFE.BIN from a WRT54G-TM
+
+4- Obtain a Hex Editor like xvi32
+
+5- Edit your et0macaddr (located at 10CAh) to match your router's MAC address (exa. currently 
+00:14:BF:00:00:01)
+
+6- Edit your new cfe il0macaddr (located at 1154h) to your router's MAC address plus one 
+(exa. currently 00:14:BF:00:00:02)
+
+7- Save your edited file and call it K26-CFE.BIN
+
+8- Hard reset your GL router using the 30/30/30 method
+
+9- Using WinSCP upload the modified CFE (named K26-CFE.BIN) to the routers /tmp directory.
+
+10- Log into your router and issue the following commands on the command line.
+
+mtd unlock cfe
+mtd write K26-CFE.BIN cfe
+
+When it completes it should reboot itself. - there has been a report that it did not reboot 
+itself...if it doesn't reboot by itself...manually reboot it.
+
+11- Verify you have the new cfe by backing up the CFE again.
+
+12- verify the original K26-CFE.BIN file and this new cfe.bin file are identical (you can use the
+"comp" command in windows to compare them)
+
+12- Once you have verified the new CFE.BIN file is on the unit, hard reset the unit again, let it
+boot up, then load up the a NEWD2_mini.bin build or K26_mini.bin build.  (or any other "generic" 
+NEWD2 or K26 build that is under 3.7M in size)
+
+
+Links
+=====
+Linksys WRT54GL
+http://www.dd-wrt.com/wiki/index.php/Linksys_WRT54GL
