@@ -11,7 +11,26 @@ within the framework of the respective hardware platform used.
 --www.dd-wrt.com/site/index
 
 
+Where Does the Name DD-WRT Come From?
+=====================================
+DD-WRT branched off Sveasoft's work once they began to start charging
+for their firmware, releasing its first version in early 2005.  Part of
+the name of that initial router, the WRT (Wireless Receiver/Transmitter)
+was merged with DD, the German automobile license plate code for Dresden,
+home of the project's founder BrainSlayer. 
+
+The project was successful enough that DD-WRT has become the basis for
+other firmware created by router manufacturers themselves.
+--www.flashrouters.com/learn/router-basics/what-is-dd-wrt
+
+
+
 Links
 =====
 DD-WRT home
 http://www.dd-wrt.com/site/index
+
+
+Where Does the Name DD-WRT Come From?
+Introductions to DD-WRT
+https://www.flashrouters.com/learn/router-basics/what-is-dd-wrt
