@@ -15,6 +15,10 @@ while at the same time supporting a great number of functionalities
 within the framework of the respective hardware platform used.
 http://www.dd-wrt.com/site/index
 
+Introduction to DD-WRT
+What Is DD-WRT Firmware?
+https://www.flashrouters.com/learn/router-basics/what-is-dd-wrt
+
 The Best Wireless Routers That Can Run DD-WRT
 Rolling your own router using OpenVPN and DD-WRT with one of these
 compatible wireless routers may not be as simple as buying a closed
