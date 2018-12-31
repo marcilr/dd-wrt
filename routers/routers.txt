@@ -1,0 +1,20 @@
+routers.txt
+Created Mon Dec 31 09:31:57 AST 2018
+by Raymond E. Marcil <ray.marcil@alaska.gov>
+
+
+Routers
+
+
+
+Asus RT-AC5300 AC5300 DD-WRT FlashRouter
+price: $499.99
+
+Linksys WRT3200ACM AC3200 DD-WRT FlashRouter
+o Great For Large Homes
+o Perfect For 10+ Devices
+o Works With All ISPs & Supported VPNs
+o Compatible Worldwide
+o Plug n Play Setup Available More Info
+price: $349.99
+https://www.flashrouters.com/routers/linksys-wrt3200acm-ddwrt-router
